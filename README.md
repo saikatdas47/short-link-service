@@ -81,3 +81,17 @@ This focused brief does not include authentication, accounts, or a growing list 
 `npm test` checks malformed input, missing codes, concurrent duplicate creates, stable retry responses after follows, redirect status and headers, concurrent visit counts, and persisted data after a restart. Tests use isolated temporary databases.
 
 The linked course lesson could not be retrieved during implementation. This service was built against the supplied brief; the lesson still needs to be read in your signed-in course session.
+
+## Browser frontend
+
+Open the local homepage after starting the service. The responsive frontend is served by the same Node process as the API; no separate frontend build or dependencies are needed.
+
+Create a short link, follow it in a new tab, refresh its visit count, or look up an existing code. Validation failures appear as field-specific messages. `GET /` serves this interface.
+
+## Frontend screenshots
+
+Local browser demonstration using isolated sample data.
+
+![Desktop frontend](docs/frontend-desktop.jpg)
+
+<img src="docs/frontend-mobile.jpg" alt="Mobile frontend" width="390">

@@ -1,7 +1,7 @@
 import http from 'node:http';
 import { randomBytes } from 'node:crypto';
 import { DatabaseSync } from 'node:sqlite';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -64,6 +64,10 @@ export function createService(databasePath = ':memory:') {
   const server = http.createServer(async (req, res) => {
     try {
       const path = new URL(req.url, 'http://localhost').pathname;
+      if (req.method === 'GET' && path === '/') {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
+        return res.end(readFileSync(new URL('./public/index.html', import.meta.url)));
+      }
       if (req.method === 'GET' && path === '/health') {
         return sendJson(res, 200, { ok: true });
       }
